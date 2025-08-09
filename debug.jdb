@@ -1,0 +1,140 @@
+# JDB Debug Configuration for TanCalculator (Modular Architecture)
+# This file contains JDB commands for debugging the TanCalculator application
+
+# ========================================
+# BREAKPOINTS FOR MODULAR ARCHITECTURE
+# ========================================
+
+# Main application entry point
+stop at TanCalculator:main
+
+# GUI Component Breakpoints
+stop at TanCalculatorGUI:compute
+stop at TanCalculatorGUI:buildUI
+stop at TanCalculatorGUI:setupAccessibility
+stop at TanCalculatorGUI:setupEventListeners
+
+# Core Mathematical Function Breakpoints
+stop at TanCalculatorCore:calculateTangent
+stop at TanCalculatorCore:parseInput
+stop at TanCalculatorCore:toRadians
+stop at TanCalculatorCore:normalizeRadians
+stop at TanCalculatorCore:tan
+stop at TanCalculatorCore:sin
+stop at TanCalculatorCore:cos
+
+# Error Handling Breakpoints
+stop at TanCalculatorErrorHandler:handleUndefinedTangent
+stop at TanCalculatorErrorHandler:handleInvalidInput
+stop at TanCalculatorErrorHandler:handleUnexpectedError
+
+# Exception Breakpoints
+catch TanCalculatorErrorHandler$InvalidInputException
+catch TanCalculatorErrorHandler$UndefinedTangentException
+
+# ========================================
+# DEBUGGING COMMANDS
+# ========================================
+
+# Start the application
+run TanCalculator
+
+# ========================================
+# USEFUL JDB COMMANDS FOR TESTING
+# ========================================
+
+# Navigation Commands:
+# step - step into method calls
+# next - step over method calls
+# cont - continue execution
+# step up - step out of current method
+
+# Variable Inspection:
+# print <variable> - print variable value
+# locals - show local variables
+# dump <object> - show object details
+# eval <expression> - evaluate expression
+
+# Breakpoint Management:
+# clear <breakpoint> - remove breakpoint
+# clear - list all breakpoints
+# stop at <class>:<method> - set new breakpoint
+
+# Stack and Thread Management:
+# where - show call stack
+# up - move up call stack
+# down - move down call stack
+# threads - list all threads
+# thread <thread-id> - switch to specific thread
+
+# Application Control:
+# suspend - suspend all threads
+# resume - resume all threads
+# kill - terminate application
+# exit - exit debugger
+
+# ========================================
+# TESTING SCENARIOS
+# ========================================
+
+# Scenario 1: Test Mathematical Calculations
+# 1. Set breakpoints at TanCalculatorCore methods
+# 2. Run application
+# 3. Enter "45" in GUI
+# 4. Step through calculation
+# 5. Inspect variables: input, degrees, radians, result
+
+# Scenario 2: Test Error Handling
+# 1. Set breakpoints at parseInput and error handler methods
+# 2. Run application
+# 3. Enter "abc" (invalid input)
+# 4. Step through error handling
+# 5. Enter "90" (undefined tangent)
+# 6. Step through exception handling
+
+# Scenario 3: Test GUI Components
+# 1. Set breakpoints at GUI initialization methods
+# 2. Run application
+# 3. Inspect GUI components: inputField, resultLabel, buttons
+# 4. Test event handling
+
+# ========================================
+# ADVANCED DEBUGGING FEATURES
+# ========================================
+
+# Conditional Breakpoints:
+# condition 1 input.equals("45")  # Break only when input is "45"
+
+# Method Entry/Exit:
+# stop in TanCalculatorCore:calculateTangent  # Break on method entry
+
+# Variable Watching:
+# watch TanCalculatorCore.PI  # Watch PI constant
+# watch TanCalculatorCore.EPS  # Watch epsilon threshold
+
+# Expression Evaluation:
+# eval Math.PI  # Test mathematical constants
+# eval 180.0 * Math.PI / 180.0  # Test degree to radian conversion
+# eval Math.sin(Math.PI/2)  # Test sine function
+
+# ========================================
+# TROUBLESHOOTING COMMANDS
+# ========================================
+
+# Check available methods:
+# methods TanCalculatorCore
+# methods TanCalculatorGUI
+# methods TanCalculatorErrorHandler
+
+# Check class information:
+# classes
+# class TanCalculatorCore
+
+# Check thread information:
+# threads
+# thread 1
+
+# Get help:
+# help
+# help step
+# help print 
