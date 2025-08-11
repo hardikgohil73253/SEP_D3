@@ -1,0 +1,5 @@
+TanCalculatorTest$GuiTests.class
+TanCalculatorTest.class
+TanCalculatorTest$CoreFeaturesTests.class
+TanCalculatorTest$IntegrationTests.class
+TanCalculatorTest$ErrorHandlerTests.class
