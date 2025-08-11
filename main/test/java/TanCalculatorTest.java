@@ -168,6 +168,28 @@ class TanCalculatorTest {
                 },
                 "tan(90°) should be undefined");
         }
+        
+        @Test
+        @DisplayName("Test angle range validation")
+        void testAngleRangeValidation() {
+            // Test angles within valid range
+            assertDoesNotThrow(() -> {
+                coreFeatures.calculateTangent("360");
+            }, "360 degrees should be valid");
+            
+            assertDoesNotThrow(() -> {
+                coreFeatures.calculateTangent("-360");
+            }, "-360 degrees should be valid");
+            
+            // Test angles outside valid range (these should still work due to normalization)
+            assertDoesNotThrow(() -> {
+                coreFeatures.calculateTangent("361");
+            }, "361 degrees should be normalized and valid");
+            
+            assertDoesNotThrow(() -> {
+                coreFeatures.calculateTangent("-361");
+            }, "-361 degrees should be normalized and valid");
+        }
     }
 
     @Nested
@@ -219,7 +241,7 @@ class TanCalculatorTest {
             
             // Test window properties
             assertEquals("tan(x) Calculator v1.0.0", gui.getTitle());
-            assertFalse(gui.isResizable());
+            assertTrue(gui.isResizable(), "GUI should be resizable for responsive design");
             
             // Test that content pane exists
             Container contentPane = gui.getContentPane();
@@ -251,13 +273,20 @@ class TanCalculatorTest {
             // Find buttons in the component hierarchy
             JButton computeButton = findButton(contentPane, "Compute tan(x)");
             JButton clearButton = findButton(contentPane, "Clear");
+            JButton helpButton = findButton(contentPane, "?");
             
             assertNotNull(computeButton, "Compute button should exist");
             assertNotNull(clearButton, "Clear button should exist");
+            assertNotNull(helpButton, "Help button should exist");
             
             // Test button properties
             assertTrue(computeButton.isEnabled(), "Compute button should be enabled");
             assertTrue(clearButton.isEnabled(), "Clear button should be enabled");
+            assertTrue(helpButton.isEnabled(), "Help button should be enabled");
+            
+            // Test button sizes
+            assertTrue(computeButton.getPreferredSize().width >= 140, "Compute button should have proper width");
+            assertTrue(clearButton.getPreferredSize().width >= 100, "Clear button should have proper width");
         }
 
         private JButton findButton(Container container, String text) {
